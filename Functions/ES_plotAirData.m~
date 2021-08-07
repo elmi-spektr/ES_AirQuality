@@ -13,13 +13,8 @@ timeBins = [t1 : (5 * 60) : t2];
 timeBins(2,:) = floor(timeBins(1,:)./3600);
 timeBins(3,:) = floor((timeBins(1,:)-timeBins(2,:)*3600)/60);
 for iT = 1:length(timeBins)
-  cHour = num2str(timeBins(2,iT));  
-  if length(cHour)<2 && str2num(cHour) > 12 
-    cHour = [cHour,'0']; 
-  elseif length(cHour)<2 && str2num(cHour) < 12 
-    cHour = ['0',cHour];     
-  end
-  cMinute = num2str(timeBins(3,iT)); if length(cMinute)<2 && str2num(cMinute) <10 cMinute = ['0',cMinute]; end
+  cHour = num2str(timeBins(2,iT));   if length(cHour)<2 cHour = [cHour,'0']; end
+  cMinute = num2str(timeBins(3,iT)); if length(cMinute)<2 cMinute = [cMinute,'0']; end
   TimeTick{iT} = [cHour,':',cMinute];
 end
 
@@ -41,7 +36,7 @@ for iD = 1:length(Days)
   PM10h2 = errorhull(1:length(timeBins),MeanPM10,PM10MeanSEM,'Color',[1 0 0]);
   PM25h1 = errorhull(1:length(timeBins),MeanPM25,2*PM25MeanSEM,'Color',[0 0 1],'Alpha',0.25);
   PM25h2 = errorhull(1:length(timeBins),MeanPM25,PM25MeanSEM,'Color',[0 0 1]);
-  xticks(1:40:288); xticklabels(TimeTick(1:40:288)); ylim([0,max([MeanPM10,MeanPM10])]);
+  xticks(1:40:288); xticklabels(TimeTick(1:40:288)); ylim([0,100]);
   title(DayNames{iD}); pause; 
   clf;
 end
